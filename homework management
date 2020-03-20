@@ -1,0 +1,17 @@
+package homework;
+
+public class Homework {
+
+	public static void main(String[] args) {
+		System.out.println("***Hyemi's Homework Management System***");
+		System.out.println("1. Add homework");
+		System.out.println("2. Delete homework");
+		System.out.println("3. Edit homework");
+		System.out.println("4. View homework");
+		System.out.println("5. Exit");
+		System.out.println("Select one number 1-5:");
+		
+
+	}
+
+}
