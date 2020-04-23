@@ -3,26 +3,45 @@ package homework;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import homework2.Homework;
+import homework2.SoftwareHomework;
+
 public class Homeworkmanager {
 	ArrayList <Homework> homeworks= new ArrayList<Homework>();
 	Scanner input;
+	Homework homework;
 	Homeworkmanager(Scanner input){		
 		this.input=input;	
 	}
 	
-	public void addHomework() { 		
-		Homework homework=new Homework();		
-		System.out.println("Subject :");
-		homework.subject=input.next();
+	public void addHomework() { 
+		int kind=0;
+		while(kind!=1&&kind!=2) {
+		    System.out.println("1.for Physics:");
+		    System.out.println("2.for Software :");
+		    System.out.println("Select homework kind between 1 and 2:");//ì…ë ¥í•  ê³¼ëª©ì˜ ì¢…ë¥˜ë¥¼ êµ¬ë¶„í•˜ê¸°ìœ„í•´ ì¶œë ¥
 		
-		System.out.println("Deadline :");
-		homework.deadline=input.next();
+		    kind = input.nextInt();
+		    if(kind==1) {
+		        homework=new Homework();
+		        homework.getUserInput(input);
+		        homeworks.add(homework);	
+			    break;
+	    	}
+	    	else if(kind==2) {
+	    		homework=new SoftwareHomework();
+	    		homework.getUserInput(input);
+	    		homeworks.add(homework);
+	    		break;
+	    	}
+		    else {
+		    	System.out.println("Select homework kind between 1 and 2:");		
+		    }
+		}//kindì˜ ê°’ì´ 1ë˜ëŠ” 2ê°€ ë  ë•Œê¹Œì§€ ì…ë ¥ë°›ì•„ì„œ ë§Œì•½ 1ì´ë©´ Homeworkì˜ getUserInputí•¨ìˆ˜ë¥¼ ì‹¤í–‰ì‹œí‚¤ê³  2ì´ë©´ SoftwareHomeworkì˜ getUserInputí•¨ìˆ˜ë¥¼ ì‹¤í–‰ ì‹œí‚¨ë‹¤.
+
+
 		
-		System.out.println("Content :");
-		homework.content=input.next();
-		homeworks.add(homework);
-	}// "Subject :"¸¦ Ãâ·Â ÈÄ Subject¿¡ ÀÔ·Â¹Ş°í ÀúÀå "Deadline :"¸¦ Ãâ·Â ÈÄ  Deadline¿¡ ÀÔ·Â¹Ş°í ÀúÀå  
-	//"Content :"¸¦ Ãâ·Â ÈÄ Content¿¡ ÀÔ·Â¹Ş°í ÀúÀåÇÏ´Â ÇÔ¼ö
+	}
 	
 	public void deleteHomework() {
 		
@@ -32,23 +51,23 @@ public class Homeworkmanager {
 		System.out.print(homeworkSubject);
 		for(int i=0; i<homeworks.size(); i++) {
 			
-			if (homeworks.get(i).subject.equals(homeworkSubject)) {
+			if (homeworks.get(i).getSubject().equals(homeworkSubject)) {
 				index=i;
 				break;
 			}				
-		}
+		}//ì…ë ¥ë°›ì€ homeworkSubjectì™€ Homeworkì˜ ë°°ì—´ì— ì €ì¥ëœ ì—¬ëŸ¬ê°€ì§€ì˜ subjectê°ì²´ ì¤‘ ê°™ì€ ê²ƒì„ ì°¾ëŠ”ë‹¤ë©´ subjectê°€ ìˆëŠ” ê³³ì„ ê°€ë¦¬í‚¤ëŠ” ië¥¼ indexê°’ì— ë„£ìŒ 
 		
 		if (index>=0) {
 			homeworks.remove(index);
 			System.out.println("The subject is deleted");
-		}
+		}//ë§Œì•½ ê°™ì€ subjectë¥¼ ì°¾ëŠ”ë‹¤ë©´ i>0ì´ ë ê²ƒì´ê³  indexë˜í•œ >0ì´ ë ê²ƒì´ë‹¤ ì´ ë•Œ removeë¥¼ ì´ìš©í•˜ì—¬ ê·¸ê³³ì— ì €ì¥ëœ ê°ì²´ë¥¼ ì‚­ì œí•œë‹¤.   
 		else {
 			System.out.println("The subject has not been registered");
 			return;
-		}
+		}//indexëŠ” ì›ë˜ -1ì´ì—ˆìœ¼ë¯€ë¡œ ê°™ì€ subjectë¥¼ ì°¾ì§€ ëª»í•œë‹¤ë©´ ê³„ì† -1ì¼ ê²ƒì´ë‹¤. ì´ë•ŒëŠ” ê°™ì€subjectë¥¼ ì°¾ì§€ ëª»í•œê²ƒì´ë¯€ë¡œ ìœ„ì™€ ê°™ì€ ë¬¸êµ¬ë¥¼ ì¶œë ¥í•œë‹¤. 
 		
 			
-	}//"Subject :"¸¦ Ãâ·Â ÈÄ Subject¿¡ ÀÔ·Â¹Ş°í ÀúÀåÇÏ´Â ÇÔ¼ö
+	}//
 	
 	
 	
@@ -57,44 +76,48 @@ public class Homeworkmanager {
 		String homeworkSubject=input.next();
 			for(int i=0; i<homeworks.size();i++) {
 				Homework homework=homeworks.get(i);			
-				if (homework.subject.contentEquals(homeworkSubject)){
-					int num=-1; //numÀ» Ã³À½¿¡ -1·Î ÀúÀå
-					while (num!=4) {// numÀÌ¶ó´Â ¼ö°¡  5ÀÌ ¾Æ´Ñ µ¿¾È ¾ÈÀÇ ³»¿ëÀ» ¹İº¹ÇÑ´Ù
+				if (homework.getSubject().contentEquals(homeworkSubject)){
+					int num=-1; //numì„ ì²˜ìŒì— -1ë¡œ ì €ì¥
+					while (num!=4) {// numì´ë¼ëŠ” ìˆ˜ê°€  4ê°€ ì•„ë‹Œ ë™ì•ˆ ì•ˆì˜ ë‚´ìš©ì„ ë°˜ë³µí•œë‹¤
 			            System.out.println("**Homework Info Edit Menu**");
 			            System.out.println("1. Edit subject");
 			            System.out.println("2. Edit deadline");
 			            System.out.println("3. Edit content");
 		        	    System.out.println("4. Exit");
-		        	    System.out.println("Select one number 1-4:");// Ãâ·Â
+		        	    System.out.println("Select one number 1-4:");// ì¶œë ¥
 			    
-			            num = input.nextInt();//num¿¡ ÀÔ·ÂÇÑ ¼ö¸¦ ÀúÀå
-			            if(num==1){ //¸¸¾à numÀÌ 1ÀÌ¸é addHomework ÇÔ¼ö¸¦ ½ÇÇà
+			            num = input.nextInt();//numì— ì…ë ¥í•œ ìˆ˜ë¥¼ ì €ì¥
+			            if(num==1){ //ë§Œì•½ numì´ 1ì´ë©´ subjectë¥¼ ì…ë ¥ë°›ì€ í›„ setSubjectí•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ê·¸ ê°’ì„ homeworkì˜ subjectê°ì²´ì— ì €ì¥
 			            	System.out.println("Subject:");
-			            	homework.subject = input.next();
+			            	String subject = input.next();
+			            	homework.setSubject(subject);
 			            }
-			            else if(num==2){ //¸¸¾à numÀÌ 2ÀÌ¸é deleteHomework ÇÔ¼ö¸¦ ½ÇÇà
+			            else if(num==2){//ë§Œì•½ numì´ 2ì´ë©´ deadlineë¥¼ ì…ë ¥ë°›ì€ í›„ setDeadlineí•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ê·¸ ê°’ì„ homeworkì˜ deadlineê°ì²´ì— ì €ì¥
 			        		System.out.println("Deadline :");
-			        		homework.deadline=input.next();			            		
+			        		String deadline=input.next();	
+			        		homework.setDeadline(deadline);
 			            }
-			            else if(num==3){ //¸¸¾à numÀÌ 3ÀÌ¸é editHomework ÇÔ¼ö¸¦ ½ÇÇà			        		
+			            else if(num==3){ //ë§Œì•½ numì´ 3ì´ë©´ contentë¥¼ ì…ë ¥ë°›ì€ í›„ setContentí•¨ìˆ˜ë¥¼ ì´ìš©í•˜ì—¬ ê·¸ ê°’ì„ homeworkì˜ contentê°ì²´ì— ì €ì¥		        		
 			        		System.out.println("Content :");
-			        		homework.content=input.next();
+			        		String content=input.next();
+			        		homework.setContent(content);
 			            }
 			            else {
-			            	continue;// num ÀÌ À§¿Í°°Àº ¼ö°¡ ¾Æ´Ï¸é ½ÇÇà ¾ÈµÊ
+			            	continue;// num ì´ ìœ„ì™€ê°™ì€ ìˆ˜ê°€ ì•„ë‹ˆë©´ ì‹¤í–‰ ì•ˆë¨
 			            }
 					}
 				}
 			}
-	  }//"Subject :"¸¦ Ãâ·Â ÈÄ Subject¿¡ ÀÔ·Â¹Ş°í ÀúÀåÇÏ´Â ÇÔ¼ö
+	  }
 	
 	public void viewHomework() {		
 //		System.out.println("Subject :");
 //		String homeworkSubject=input.next();
+		System.out.println(" of registersed homeworks:"+homeworks.size());
         for(int i=0; i<homeworks.size(); i++) {
         	homeworks.get(i).printInfo();
         }
-//"Subject :"¸¦ Ãâ·Â ÈÄ Subject¿¡ ÀÔ·Â¹Ş°í ÀúÀåÇÏ´Â ÇÔ¼ö
+//ì§€ê¸ˆê¹Œì§€ ê°ì²´ì— ì €ì¥ëœ ê°’ì„ ëª¨ë‘ ì¶œë ¥í•˜ëŠ” í•¨ìˆ˜ 
 	
 
 	}
