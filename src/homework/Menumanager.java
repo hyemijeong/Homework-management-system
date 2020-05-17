@@ -1,5 +1,6 @@
 package homework;
 
+import java.util.InputMismatchException;
 import java.util.Scanner; 
 
 public class Menumanager {
@@ -8,38 +9,56 @@ public class Menumanager {
 	public static void main(String[] args) {
 		System.out.println("Hi~");
 		
-		Scanner input = new Scanner(System.in);	//inputì´ë¼ëŠ” ë³€ìˆ˜ì— ì…ë ¥í•œ ê°’  ì €ì¥.	
+		Scanner input = new Scanner(System.in);	//inputÀÌ¶ó´Â º¯¼ö¿¡ ÀÔ·ÂÇÑ °ª  ÀúÀå.	
 		
 		Homeworkmanager homeworkmanager = new Homeworkmanager(input);
+		selectMenu(input,homeworkmanager);
 		
-		int num=-1; //numì„ ì²˜ìŒì— -1ë¡œ ì €ì¥
-		while (num!=5) {// numì´ë¼ëŠ” ìˆ˜ê°€  5ì´ ì•„ë‹Œ ë™ì•ˆ ì•ˆì˜ ë‚´ìš©ì„ ë°˜ë³µí•œë‹¤
-		    System.out.println("***Hyemi's Homework Management System***");
-		    System.out.println("1. Add homework");
-		    System.out.println("2. Delete homework");
-		    System.out.println("3. Edit homework");
-		    System.out.println("4. View homework");
-		    System.out.println("5. Exit");
-		    System.out.println("Select one number 1-6:");// ì¶œë ¥
-		    
-		    num = input.nextInt();//numì— ì…ë ¥í•œ ìˆ˜ë¥¼ ì €ì¥
-		    if(num==1){ //ë§Œì•½ numì´ 1ì´ë©´ addHomework í•¨ìˆ˜ë¥¼ ì‹¤í–‰
-		    	homeworkmanager.addHomework();
-		    }
-		    else if(num==2){ //ë§Œì•½ numì´ 2ì´ë©´ deleteHomework í•¨ìˆ˜ë¥¼ ì‹¤í–‰
-		    	homeworkmanager.deleteHomework();	
-		    }
-		    else if(num==3){ //ë§Œì•½ numì´ 3ì´ë©´ editHomework í•¨ìˆ˜ë¥¼ ì‹¤í–‰
-		    	homeworkmanager.editHomework();	
-		    }
-		    else if(num==4){ //ë§Œì•½ numì´ 4ì´ë©´ viewHomework í•¨ìˆ˜ë¥¼ ì‹¤í–‰
-		    	homeworkmanager.viewHomework();	
-		    }
-		    else {
-		    	continue;// num ì´ ìœ„ì™€ê°™ì€ ìˆ˜ê°€ ì•„ë‹ˆë©´ ì‹¤í–‰ ì•ˆë¨
-		    }
-		}
      }
+	public static void selectMenu(Scanner input,Homeworkmanager homeworkmanager) {
+		int num=-1; //numÀ» Ã³À½¿¡ -1·Î ÀúÀå
+		while (num!=5) {
+			try{// numÀÌ¶ó´Â ¼ö°¡  5ÀÌ ¾Æ´Ñ µ¿¾È ¾ÈÀÇ ³»¿ëÀ» ¹İº¹ÇÑ´Ù
+			    showMenu();
+		        num = input.nextInt();//num¿¡ ÀÔ·ÂÇÑ ¼ö¸¦ ÀúÀå
+		        switch(num) {
+		        case 1:
+		    	    homeworkmanager.addHomework();
+		    	    break;
+		        case 2:
+		        	homeworkmanager.deleteHomework();	
+		        	break;
+		        case 3:
+		        	homeworkmanager.editHomework();
+		        	break;
+		        case 4:
+		        	homeworkmanager.viewHomework();	
+		        	break;
+		        default:
+		        	continue;
+		        }
+			}
+			catch(InputMismatchException e) {
+				System.out.println("Please put an integer between 1 and 5!");
+				if(input.hasNext()) {
+					input.next();
+				}
+				num=-1;				
+			}
+		}
+	}
+	public static void showMenu() {
+		System.out.println("***Hyemi's Homework Management System***");
+	    System.out.println("1. Add homework");
+	    System.out.println("2. Delete homework");
+	    System.out.println("3. Edit homework");
+	    System.out.println("4. View homework");
+	    System.out.println("5. Exit");
+	    System.out.println("Select one number 1-6:");// Ãâ·Â
+		
+		
+	}
 		
 
 }
+			
