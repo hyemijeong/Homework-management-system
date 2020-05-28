@@ -1,11 +1,16 @@
 package homework2;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
 import exception.DeadlineFormatException;
 
-public abstract class Homework implements HomeworkInput {
+public abstract class Homework implements HomeworkInput, Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2287825476866272023L;
 	protected Homeworkkind kind=Homeworkkind.Physics;
 	protected String subject;
 	protected String deadline;
@@ -54,7 +59,7 @@ public abstract class Homework implements HomeworkInput {
 		if(!deadline.contains("¿œ") && !deadline.equals("")) {
 			throw new DeadlineFormatException();
 		}
-		
+		 this.deadline=deadline;
 	}
 
 	public String getContent() {
@@ -85,7 +90,7 @@ public abstract class Homework implements HomeworkInput {
 		    } 
 		    catch (DeadlineFormatException e) {
 		    	System.out.println("Incorrect Deadline Format. put the deadline that cantains ¿œ");
-			    e.printStackTrace();
+			   
 		    } 
 		}
 		
@@ -98,21 +103,6 @@ public abstract class Homework implements HomeworkInput {
 		this.setContent(content);
 	}
     
-	public void getUserInput(Scanner input) {
-		System.out.println("Subject :");
-		String subject=input.next();
-		this.setSubject(subject);
-		
-		System.out.println("Deadline :");
-		String deadline=input.next();
-		this.setDeadline(deadline);
-		
-		System.out.println("Content :");
-		String content=input.next();
-		this.setContent(content);
-		
-	}
-	
 	public String getKindString() {
 		String hkind="none";
 		switch (this.kind) {

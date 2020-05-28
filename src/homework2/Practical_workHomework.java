@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Practical_workHomework extends HardHomework {
 	
+	private static final long serialVersionUID = -1171209646126580361L;
 	protected String anothercontent;
 	
 	public Practical_workHomework(Homeworkkind kind) {

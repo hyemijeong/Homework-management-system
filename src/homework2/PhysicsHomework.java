@@ -3,7 +3,9 @@ package homework2;
 import java.util.Scanner;
 
 public class PhysicsHomework extends Homework  {
-	
+
+	private static final long serialVersionUID = -445628104534483723L;
+
 	public PhysicsHomework(Homeworkkind kind) {
 		super(kind);
 	}

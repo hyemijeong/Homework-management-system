@@ -4,6 +4,11 @@ import java.util.Scanner;
 
 public abstract class HardHomework extends Homework {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8723543048619313502L;
+
 	public HardHomework(Homeworkkind kind) {
 		super(kind);
 	}

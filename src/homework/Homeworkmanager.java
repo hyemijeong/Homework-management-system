@@ -1,19 +1,24 @@
 package homework;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import homework2.Homework;
 import homework2.HomeworkInput;
 import homework2.Homeworkkind;
 import homework2.PhysicsHomework;
 import homework2.Practical_workHomework;
 import homework2.SoftwareHomework;
 
-public class Homeworkmanager {
+public class Homeworkmanager implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3707635784900225385L;
 	ArrayList <HomeworkInput> homeworks= new ArrayList<HomeworkInput>();
-	Scanner input;
+	transient Scanner input;
 	
 	Homeworkmanager(Scanner input){		
 		this.input=input;	
@@ -21,9 +26,10 @@ public class Homeworkmanager {
 	
 	public void addHomework() { 
 		int kind=0;
-		HomeworkInput homework;
+		HomeworkInput homeworkInput;
 		while(kind<1||kind>3) {
 			try {
+				
 		        System.out.println("1.for Physics:");
 		        System.out.println("2.for Software :");
 		        System.out.println("3.for Practical_workHomework :");
@@ -31,21 +37,21 @@ public class Homeworkmanager {
 		
 		        kind = input.nextInt();
 		        if(kind==1) {
-		            homework=new PhysicsHomework(Homeworkkind.Physics);
-		            homework.getUserInput(input);
-		            homeworks.add(homework);	
+		            homeworkInput=new PhysicsHomework(Homeworkkind.Physics);
+		            homeworkInput.getUserInput(input);
+		            homeworks.add(homeworkInput);	
 			        break;
 	        	}
 	    	    else if(kind==2) {
-	    	    	homework=new SoftwareHomework(Homeworkkind.Software);
-	        		homework.getUserInput(input);
-	        		homeworks.add(homework);
+	    	    	homeworkInput=new SoftwareHomework(Homeworkkind.Software);
+	        		homeworkInput.getUserInput(input);
+	        		homeworks.add(homeworkInput);
     	    		break;
 	        	}
 	    	    else if(kind==3) {
-	        		homework=new Practical_workHomework(Homeworkkind.Practical_work);
-	        		homework.getUserInput(input);
-	    		    homeworks.add(homework);
+	        		homeworkInput=new Practical_workHomework(Homeworkkind.Practical_work);
+	        		homeworkInput.getUserInput(input);
+	    		    homeworks.add(homeworkInput);
 	    	    	break;
 	    	    }
 		        else {
@@ -54,13 +60,16 @@ public class Homeworkmanager {
 		    }
 			catch(InputMismatchException e) {
 				System.out.println("Please put an integer between 1 and 3!");
+				if (input.hasNext()) {
+					input.next();
+				}
+				kind = -1;
 			}
 		}
 
 
 		
-	}// "Subject :"를 출력 후 Subject에 입력받고 저장 "Deadline :"를 출력 후  Deadline에 입력받고 저장  
-	//"Content :"를 출력 후 Content에 입력받고 저장하는 함수
+	}
 	
 	public void deleteHomework() {
 		
@@ -69,7 +78,7 @@ public class Homeworkmanager {
 		int index=findIndex(homeworkSubject);
 		removefromSubject(index , homeworkSubject);
 	
-	}//"Subject :"를 출력 후 Subject에 입력받고 저장하는 함수
+	}
 	
 	public int findIndex(String homeworkSubject) {
 		int index=-1;
@@ -131,8 +140,7 @@ public class Homeworkmanager {
         }
         
 	}
-	
-	
+
 	public void showEditMenu() {
     	System.out.println("**Homework Info Edit Menu**");
         System.out.println("1. Edit subject");
@@ -140,5 +148,9 @@ public class Homeworkmanager {
         System.out.println("3. Edit content");
 	    System.out.println("4. Exit");
 	    System.out.println("Select one number 1-4:");// 출력
+    }
+	
+	public void setScanner(Scanner input) {
+        this.input = input;
     }
 }
