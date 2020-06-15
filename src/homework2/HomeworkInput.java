@@ -10,7 +10,11 @@ public interface HomeworkInput {
 	
 	public void setSubject(String subject);
 	
+	public String getDeadline();
+	
 	public void setDeadline(String deadline) throws DeadlineFormatException;
+	
+	public String getContent();
 	
 	public void setContent(String content);
 	

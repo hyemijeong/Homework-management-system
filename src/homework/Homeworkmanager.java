@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import homework2.Homework;
 import homework2.HomeworkInput;
 import homework2.Homeworkkind;
 import homework2.PhysicsHomework;
@@ -140,7 +141,15 @@ public class Homeworkmanager implements Serializable {
         }
         
 	}
-
+	public int size() {
+		// TODO Auto-generated method stub
+		return homeworks.size();
+	}
+	
+	public HomeworkInput get(int index) {
+		return (Homework) homeworks.get(index);
+	}
+	
 	public void showEditMenu() {
     	System.out.println("**Homework Info Edit Menu**");
         System.out.println("1. Edit subject");
@@ -153,4 +162,7 @@ public class Homeworkmanager implements Serializable {
 	public void setScanner(Scanner input) {
         this.input = input;
     }
+
+	
+
 }

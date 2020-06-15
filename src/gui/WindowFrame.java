@@ -3,15 +3,27 @@ package gui;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import homework.Homeworkmanager;
+
 public class WindowFrame extends JFrame {
 	
-	public WindowFrame () {
-		this.meneselection=new MenuSelection(this);
-		this.homeworkadder = new HomeworkAdder(this);
-		this.homeworkviewer= new HomeworkViewer(this);
+	Homeworkmanager homeworkmanager;
+	MenuSelection meneselection; 
+	HomeworkAdder homeworkadder;
+	HomeworkViewer homeworkviewer;
+	
+	public WindowFrame (Homeworkmanager homeworkmanager) {
 		
 		this.setSize(500,300);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setTitle("My frame");
+		
+		this.homeworkmanager= homeworkmanager;
+		meneselection = new MenuSelection(this);
+		homeworkadder = new HomeworkAdder(this);
+		homeworkviewer = new HomeworkViewer(this, this.homeworkmanager);
+		
+		
 		
 		
 		this.setupPanel(meneselection);
@@ -25,7 +37,6 @@ public class WindowFrame extends JFrame {
 		this.repaint();
 	}
 	
-	MenuSelection meneselection;
 	public MenuSelection getMeneselection() {
 		return meneselection;
 	}
@@ -44,8 +55,7 @@ public class WindowFrame extends JFrame {
 	public void setHomeworkviewer(HomeworkViewer homeworkviewer) {
 		this.homeworkviewer = homeworkviewer;
 	}
-	HomeworkAdder homeworkadder;
-	HomeworkViewer homeworkviewer;
+
 
 	
 
